@@ -1,34 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <title>Ballena AR</title>
   </head>
-
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene
-      mindar-image="imageTargetSrc: ballena.mind; autoStart: true; uiLoading: yes; uiScanning: yes;"
-      color-space="sRGB"
-      renderer="colorManagement: true; exposure: 1.5"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-      embedded>
-
+  <body>
+    <a-scene mindar-image="imageTargetSrc: ./ballena.mind; autoStart: true; uiScanning: yes;" color-space="sRGB" renderer="colorManagement: true, exposure: 2" vr-mode-ui="enabled: false">
+      
       <a-assets>
-        <a-asset-item id="modeloBallena" src="ballena.glb?v=2"></a-asset-item>
+        <a-asset-item id="modeloBallena" src="./ballena.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
+      <a-light type="ambient" intensity="2"></a-light>
+      <a-light type="directional" position="0 1 1" intensity="1"></a-light>
+
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model
-          src="#modeloBallena"
-          position="0 0 0.1"
-          scale="0.01 0.01 0.01"
-          rotation="0 180 0"></a-gltf-model>
+        <a-box color="red" scale="0.2 0.2 0.2" position="0 0.5 0"></a-box>
+
+        <a-gltf-model src="#modeloBallena" position="0 0 0" scale="10 10 10"></a-gltf-model>
+        
+        <a-text value="HOLA BALLENA" color="blue" align="center" position="0 -0.5 0"></a-text>
       </a-entity>
     </a-scene>
   </body>
