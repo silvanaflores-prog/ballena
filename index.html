@@ -8,66 +8,34 @@
     <title>Libro Océano - Seño Sil</title>
 
     <style>
-      /* Pantalla de carga violeta centrada */
-      #logo-overlay {
+      #loading-overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        top: 0; left: 0; width: 100vw; height: 100vh;
         background-color: #9C27B0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Centra verticalmente */
-        align-items: center;     /* Centra horizontalmente */
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
         z-index: 9999;
         transition: opacity 1s ease-out;
       }
-
-      #logo-overlay.hidden {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      #logo-image {
-        width: 150px; /* Tamaño de tu logo */
-        height: 150px;
-        object-fit: contain;
-        border-radius: 50%; /* Lo mantiene circular como en tu foto */
-        margin-bottom: 20px;
-      }
-
+      #loading-overlay.hidden { opacity: 0; pointer-events: none; }
       .loader {
         border: 5px solid rgba(255, 255, 255, 0.3);
         border-top: 5px solid #ffffff;
         border-radius: 50%;
-        width: 45px;
-        height: 45px;
+        width: 50px; height: 50px;
         animation: spin 1s linear infinite;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
-
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      .firma {
-        color: white;
-        font-family: sans-serif;
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin: 0;
-      }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      .firma { color: white; font-family: sans-serif; font-size: 2rem; font-weight: bold; margin: 0; }
     </style>
   </head>
 
   <body style="margin: 0; overflow: hidden;">
     
-    <div id="logo-overlay">
-      <img id="logo-image" src="./logo.png" alt="Logo Seño Sil">
+    <div id="loading-overlay">
       <div class="loader"></div>
       <p class="firma">Seño Sil</p>
+      <p style="color: white; font-family: sans-serif; margin-top: 10px;">¡Preparando la magia!</p>
     </div>
 
     <a-scene 
@@ -78,13 +46,17 @@
       device-orientation-permission-ui="enabled: false">
       
       <a-assets>
-        <a-asset-item id="modeloBallena" src="./ballena.glb"></a-asset-item>
+        <a-asset-item id="modeloBallena" src="ballena.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model src="#modeloBallena" position="0 0 0.1" scale="1.5 1.5 1.5"></a-gltf-model>
+        <a-gltf-model 
+          src="#modeloBallena" 
+          position="0 0 0.1" 
+          scale="1.5 1.5 1.5">
+        </a-gltf-model>
         
         <a-entity position="0 0.8 0.1">
           <a-plane color="#000" height="0.5" width="2.5" opacity="0.7"></a-plane>
@@ -98,12 +70,15 @@
     </a-scene>
 
     <script>
-      // Esta es la parte que quita la pantalla violeta al detectar la cámara
+      // Forzar que la pantalla se vaya cuando MindAR esté listo
       document.querySelector('a-scene').addEventListener('realityready', () => {
-        setTimeout(() => {
-          document.getElementById('logo-overlay').classList.add('hidden');
-        }, 1500);
+        document.getElementById('loading-overlay').classList.add('hidden');
       });
+
+      // Si en 10 segundos no cargó, quitar igual para ver qué pasa
+      setTimeout(() => {
+        document.getElementById('loading-overlay').classList.add('hidden');
+      }, 10000);
     </script>
   </body>
 </html>
