@@ -1,52 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <title>Ballena</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <title>Libro Océano - Ballena</title>
   </head>
 
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene
-      mindar-image="imageTargetSrc: ./ballena.mind; autoStart: true;"
-      color-space="sRGB"
-      renderer="colorManagement: true; physicallyCorrectLights: false; exposure: 1.2;"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-    >
+  <body>
+    <a-scene background="color: #001a33">
 
-      <a-assets>
-        <a-asset-item id="modeloBallena" src="./ballena.glb"></a-asset-item>
-      </a-assets>
+      <!-- Cámara -->
+      <a-camera position="0 1.6 5"></a-camera>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
+      <!-- Luz -->
       <a-light type="ambient" intensity="1.2"></a-light>
-      <a-light type="directional" position="0 1 1" intensity="0.8"></a-light>
+      <a-light type="directional" position="0 5 5" intensity="1"></a-light>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-
-        <a-gltf-model
-          src="#modeloBallena"
-          position="0 0 0.1"
-          scale="1 1 1"
-          rotation="0 0 0"
-        ></a-gltf-model>
-
-        <a-entity position="0 0.8 0.1">
-          <a-plane color="#000" height="0.3" width="2" opacity="0.6"></a-plane>
-          <a-text
-            value="¿SABIAS QUE?\n¡Su corazon es del tamaño de un auto!"
-            color="#FFF"
-            align="center"
-            width="1.8"
-            position="0 0 0.01"
-          ></a-text>
-        </a-entity>
-
+      <!-- Ballena -->
+      <a-entity
+        gltf-model="url(ballena_web.glb)"
+        position="0 0 0"
+        scale="1 1 1"
+        rotation="0 0 0">
       </a-entity>
+
     </a-scene>
   </body>
 </html>
