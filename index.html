@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <title>Libro Oceano - Ballena</title>
+    
+    <title>Libro Océano - Seño Sil</title>
 
     <style>
+      /* Pantalla de carga limpia con tu firma */
       #logo-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #9C27B0; /* Tu color violeta actual */
+        background-color: #9C27B0; /* Violeta */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -26,43 +28,48 @@
         opacity: 0;
         pointer-events: none;
       }
-      #logo-image {
-        width: 220px;
-        height: auto;
-        margin-bottom: 20px;
-      }
       .loader {
         border: 5px solid rgba(255, 255, 255, 0.3);
         border-top: 5px solid #ffffff;
         border-radius: 50%;
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
         animation: spin 1s linear infinite;
+        margin-bottom: 20px;
       }
       @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-      #loading-text {
-        margin-top: 20px;
-        font-family: sans-serif;
+      .firma-texto {
+        font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
         color: #ffffff;
-        font-weight: bold;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+      .sub-texto {
+        font-family: sans-serif;
+        color: rgba(255,255,255,0.8);
+        font-size: 1rem;
+        margin-top: 10px;
       }
     </style>
   </head>
 
-  <body>
+  <body style="margin: 0; overflow: hidden;">
+    
     <div id="logo-overlay">
-      <img id="logo-image" src="./Logo.png" alt="Logo Libro Oceano" />
       <div class="loader"></div>
-      <p id="loading-text">¡Preparando la magia!</p>
+      <p class="firma-texto">Seño Sil</p>
+      <p class="sub-texto">Preparando la magia...</p>
     </div>
 
     <a-scene
       mindar-image="imageTargetSrc: ./ballena.mind; autoStart: true; uiLoading: no; uiScanning: yes;"
+      color-space="sRGB"
       renderer="colorManagement: true, exposure: 1.5"
-      vr-mode-ui="enabled: false">
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false">
 
       <a-assets>
         <a-asset-item id="modeloBallena" src="./ballena.glb"></a-asset-item>
@@ -77,17 +84,18 @@
         <a-gltf-model
           src="#modeloBallena"
           position="0 0 0.1"
-          scale="1.2 1.2 1.2">
+          scale="1.2 1.2 1.2"
+          rotation="0 0 0">
         </a-gltf-model>
 
         <a-entity position="0 0.8 0.1">
-          <a-plane color="#000" height="0.4" width="2.3" opacity="0.7"></a-plane>
+          <a-plane color="#000" height="0.4" width="2.4" opacity="0.7"></a-plane>
           <a-text
-            value="¿SABIAS QUÉ?\n¡Su corazon es del tamano de un auto!"
+            value="¿SABÍAS QUÉ?\n¡Su corazón es del tamaño de un auto!"
             color="#FFF"
             align="center"
             font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"
-            width="2.1"
+            width="2.2"
             position="0 0 0.01">
           </a-text>
         </a-entity>
@@ -95,10 +103,11 @@
     </a-scene>
 
     <script>
+      // Se oculta cuando la cámara detecta el entorno
       document.querySelector('a-scene').addEventListener('realityready', function () {
         setTimeout(() => {
           document.getElementById('logo-overlay').classList.add('hidden');
-        }, 1200);
+        }, 1000);
       });
     </script>
   </body>
