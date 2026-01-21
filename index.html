@@ -9,14 +9,14 @@
     <title>Libro Océano - Experiencia AR</title>
 
     <style>
-      /* Pantalla de carga personalizada */
+      /* Pantalla de carga profesional con fondo Violeta/Fucsia */
       #logo-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #9C27B0; /* VIOLETA (puedes cambiarlo por #E91E63 para fucsia) */
+        background-color: #9C27B0; /* Color Violeta/Púrpura */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -29,7 +29,7 @@
         pointer-events: none;
       }
       #logo-image {
-        width: 220px; /* Tamaño del logo */
+        width: 220px; /* Tamaño del logo ajustable */
         height: auto;
         margin-bottom: 25px;
       }
@@ -37,8 +37,8 @@
         border: 5px solid rgba(255, 255, 255, 0.3);
         border-top: 5px solid #ffffff;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         animation: spin 1s linear infinite;
       }
       @keyframes spin {
@@ -46,11 +46,12 @@
         100% { transform: rotate(360deg); }
       }
       #loading-text {
-        margin-top: 15px;
-        font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Fuente más infantil */
+        margin-top: 20px;
+        font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
         color: #ffffff;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
       }
     </style>
   </head>
@@ -58,7 +59,7 @@
   <body style="margin: 0; overflow: hidden;">
     
     <div id="logo-overlay">
-      <img id="logo-image" src="./logo.png" alt="Logo Libro Océano" />
+      <img id="logo-image" src="./Logo.png" alt="Logo Libro Océano" />
       <div class="loader"></div>
       <p id="loading-text">¡Preparando la magia!</p>
     </div>
@@ -88,13 +89,13 @@
         </a-gltf-model>
 
         <a-entity position="0 0.8 0.1">
-          <a-plane color="#000" height="0.4" width="2.2" opacity="0.7"></a-plane>
+          <a-plane color="#000" height="0.4" width="2.4" opacity="0.7"></a-plane>
           <a-text
             value="¿SABÍAS QUÉ?\n¡Su corazón es del tamaño de un auto!"
             color="#FFF"
             align="center"
             font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"
-            width="2"
+            width="2.2"
             position="0 0 0.01">
           </a-text>
         </a-entity>
@@ -102,11 +103,11 @@
     </a-scene>
 
     <script>
-      // Oculta la pantalla de carga cuando la cámara está lista
+      // Oculta el logo cuando la Realidad Aumentada está lista
       document.querySelector('a-scene').addEventListener('realityready', function () {
         setTimeout(() => {
           document.getElementById('logo-overlay').classList.add('hidden');
-        }, 1200); 
+        }, 1200); // 1.2 segundos para que el usuario vea tu marca
       });
     </script>
   </body>
