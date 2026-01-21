@@ -8,54 +8,34 @@
     <title>Libro Océano - Seño Sil</title>
 
     <style>
-      /* Intro Violeta Centrada */
       #loading-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100vw; height: 100vh;
-        background-color: #9C27B0;
-        display: flex; flex-direction: column;
-        justify-content: center; align-items: center;
-        z-index: 9999;
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: #9C27B0; display: flex; flex-direction: column;
+        justify-content: center; align-items: center; z-index: 9999;
         transition: opacity 1s ease-out;
       }
       #loading-overlay.hidden { opacity: 0; pointer-events: none; }
-      
       .loader {
-        border: 5px solid rgba(255, 255, 255, 0.3);
-        border-top: 5px solid #ffffff;
-        border-radius: 50%;
-        width: 50px; height: 50px;
-        animation: spin 1s linear infinite;
-        margin-bottom: 20px;
+        border: 5px solid rgba(255,255,255,0.3); border-top: 5px solid #ffffff;
+        border-radius: 50%; width: 50px; height: 50px;
+        animation: spin 1s linear infinite; margin-bottom: 20px;
       }
       @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-      
-      .intro-text {
-        color: white;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-align: center;
-      }
-      .firma { font-size: 2.2rem; font-weight: bold; margin: 0; }
-      .preparando { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+      .firma { color: white; font-family: sans-serif; font-size: 2.2rem; font-weight: bold; margin: 0; }
     </style>
   </head>
 
   <body style="margin: 0; overflow: hidden;">
-    
     <div id="loading-overlay">
       <div class="loader"></div>
-      <div class="intro-text">
-        <p class="firma">Seño Sil</p>
-        <p class="preparando">¡Preparando la magia!</p>
-      </div>
+      <p class="firma">Seño Sil</p>
+      <p style="color: white; font-family: sans-serif; margin-top: 10px;">¡Preparando la magia!</p>
     </div>
 
     <a-scene 
       mindar-image="imageTargetSrc: ./ballena.mind; autoStart: true; uiLoading: no; uiScanning: yes;" 
-      color-space="sRGB" 
-      renderer="colorManagement: true, exposure: 1.5" 
-      vr-mode-ui="enabled: false" 
-      device-orientation-permission-ui="enabled: false">
+      color-space="sRGB" renderer="colorManagement: true, exposure: 1.5" 
+      vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       
       <a-assets>
         <a-asset-item id="modeloBallena" src="./ballena.glb"></a-asset-item>
@@ -64,20 +44,13 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model 
-          src="#modeloBallena" 
-          position="0 0 0.1" 
-          scale="0.5 0.5 0.5"
-          rotation="0 90 0">
-        </a-gltf-model>
+        <a-gltf-model src="#modeloBallena" position="0 0 0.1" scale="0.4 0.4 0.4" rotation="0 90 0"></a-gltf-model>
         
         <a-entity position="0 0.8 0.1">
           <a-plane color="#000" height="0.5" width="2.5" opacity="0.7"></a-plane>
           <a-text 
             value="¿SABÍAS QUÉ?\n¡Su corazón es del tamaño de un auto!" 
-            align="center" 
-            color="#FFF" 
-            width="2.3"
+            align="center" color="#FFF" width="2.3"
             font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt">
           </a-text>
         </a-entity>
@@ -85,12 +58,17 @@
     </a-scene>
 
     <script>
-      // Quita la intro violeta cuando la cámara está lista
+      const overlay = document.getElementById('loading-overlay');
+      
+      // Opción A: Se quita cuando la cámara está lista
       document.querySelector('a-scene').addEventListener('realityready', () => {
-        setTimeout(() => {
-          document.getElementById('loading-overlay').classList.add('hidden');
-        }, 2000); // 2 segundos de gracia para que se vea tu firma
+        overlay.classList.add('hidden');
       });
+
+      // Opción B: SEGURIDAD. Si en 6 segundos no cargó, se quita igual para que no se trabe
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 6000);
     </script>
   </body>
 </html>
