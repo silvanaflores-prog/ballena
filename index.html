@@ -9,14 +9,14 @@
     <title>Libro Océano - Experiencia AR</title>
 
     <style>
-      /* Pantalla de carga profesional */
+      /* Pantalla de carga personalizada */
       #logo-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #ffffff; /* Fondo blanco */
+        background-color: #9C27B0; /* VIOLETA (puedes cambiarlo por #E91E63 para fucsia) */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -29,21 +29,28 @@
         pointer-events: none;
       }
       #logo-image {
-        width: 200px; /* Ajusta el tamaño de tu logo aquí */
+        width: 220px; /* Tamaño del logo */
         height: auto;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
       }
       .loader {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-top: 5px solid #ffffff;
         border-radius: 50%;
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         animation: spin 1s linear infinite;
       }
       @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+      }
+      #loading-text {
+        margin-top: 15px;
+        font-family: 'Comic Sans MS', 'Arial', sans-serif; /* Fuente más infantil */
+        color: #ffffff;
+        font-size: 1.2rem;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -51,9 +58,9 @@
   <body style="margin: 0; overflow: hidden;">
     
     <div id="logo-overlay">
-      <img id="logo-image" src="./Logo.png" alt="Logo Libro Océano" />
+      <img id="logo-image" src="./logo.png" alt="Logo Libro Océano" />
       <div class="loader"></div>
-      <p style="font-family: sans-serif; color: #555;">Preparando la magia...</p>
+      <p id="loading-text">¡Preparando la magia!</p>
     </div>
 
     <a-scene
@@ -95,11 +102,11 @@
     </a-scene>
 
     <script>
-      // Detecta cuando la cámara y la AR están listas para ocultar el logo
+      // Oculta la pantalla de carga cuando la cámara está lista
       document.querySelector('a-scene').addEventListener('realityready', function () {
         setTimeout(() => {
           document.getElementById('logo-overlay').classList.add('hidden');
-        }, 1000); // 1 segundo extra para asegurar suavidad
+        }, 1200); 
       });
     </script>
   </body>
